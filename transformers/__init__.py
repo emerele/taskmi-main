@@ -10,7 +10,8 @@ transform_sales_methods = {
     "eros": eros_transform_sales,
     "e_city": ecity_transform_sales,
     "jackys": jackys_transform_sales,
-    "nesto" : nesto_transform_sales,
+    "nesto_xiaomi" : nesto_transform_sales,
+    "nesto_lazor" : nesto_transform_sales,
 }
 
 

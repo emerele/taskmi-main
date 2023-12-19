@@ -37,7 +37,8 @@ def transform_sales(exel_path, source_df):
                     if quantity > 0:
                         non_defined_items.append({
                             'Retail': 'Dubai_Duty_Free',
-                            'Item': row['DESCRIPTION'].values[0],
+                            'Article': row['RIN'].values[0],
+                            'model': row['DESCRIPTION'].values[0],
                             'site name': location,
                             'sales':quantity,
                             'Selling Price': sell_price,

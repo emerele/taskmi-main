@@ -18,7 +18,8 @@ def transform_sales(exel_path, source_df):
             if filtered_df.empty:
                 non_defined_items.append({
                     'Retail': 'Jackys',
-                    'Item': row['ItemCode'],
+                    'Article': row['ItemCode'],
+                    'model': row['ItemDesc'],
                     'site name': row['Location'],
                     'sales':row['Qty']
                 })

@@ -43,8 +43,14 @@ stores_list = [
     },
     {
     
-        'title' : "Nesto",
-        'slug' : "nesto",
+        'title' : "Nesto Xiaomi",
+        'slug' : "nesto_xiaomi",
+        'input_type' :"exel",
+    },
+    {
+    
+        'title' : "Nesto Lazor",
+        'slug' : "nesto_lazor",
         'input_type' :"exel",
     }
     
@@ -143,7 +149,7 @@ if st.session_state['logged_in']:
             st.session_state['output'] = st.selectbox(
                 "Output Data",
                 # ("Carrefour", "SharafDG", "LuLu", "Axiom","Dubai_Duty","Nesto","Eros", "All"),
-                ("Carrefour", "SharafDG", "LuLu", "Axiom","Dubai_Duty","Eros","E-city","Jackys","Nesto", "All"),
+                ("Carrefour", "SharafDG", "LuLu", "Axiom","Dubai_Duty","Eros","E-city","Jackys","Nesto Xiaomi","Nesto Lazor", "All"),
                 index=3,
                 )
             
@@ -174,7 +180,7 @@ if st.session_state['logged_in']:
 
             with st.form("Data Input"):
 
-                layout = grid(1,[1,3],1,1,[1,3],1,1,[1,3],[1,3],1,1,[1,3],[1,3],[1,3],1,[1,3],1,[1,3],1,[1,3],1,[1,3], vertical_align="bottom")
+                layout = grid(1,[1,3],1,1,[1,3],1,1,[1,3],[1,3],1,1,[1,3],[1,3],[1,3],1,[1,3],1,[1,3],1,[1,3],1,[1,3],1,[1,3], vertical_align="bottom")
                 
                 layout.write("## Source")
                 layout.image("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcannaangelsllc.com%2Fwp-content%2Fuploads%2F2015%2F02%2Fplace-holder-image.png&f=1&nofb=1&ipt=b1b6b10c6455a7b6c13e704f2b5ebf46c7e89c6fa5c5bbf08c06bc393fc1c95d&ipo=images")
