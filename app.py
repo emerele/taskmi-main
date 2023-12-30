@@ -5,7 +5,7 @@ from streamlit_extras.grid import grid
 from mystuff import *
 from data_reader import *
 from transormer import *
-from transformers import transform_sales,transform_stock
+from transformers import transform_sales,transform_stocks
 # Hardcoded username and password for demonstration purposes
 USERNAME = "user"
 PASSWORD = "password"
@@ -82,11 +82,11 @@ if 'logged_in' not in st.session_state:
 
         for store in stores_list :
             st.session_state[store['slug']+'_sales'] = []
-            st.session_state[store['slug']+'_stocks'] = []
+            st.session_state[store['slug']+'_stock'] = []
             st.session_state[store['slug']+'_stock_transformed_data'] = []
             st.session_state[store['slug']+'_sales_transformed_data'] = []
             st.session_state[store['slug']+'_nondef_transformed_data'] = []
-            st.session_state[store['slug']+'_nondef_stocks_transformed_data'] = []
+            st.session_state[store['slug']+'_nondef_stock_transformed_data'] = []
 
 
 
@@ -161,7 +161,7 @@ if st.session_state['logged_in']:
                     mime='text/csv',
                 )
             st.download_button(
-                    label="Download Stocks data as CSV",
+                    label="Download Stock data as CSV",
                     data=pd.DataFrame(st.session_state.all_stocks).to_csv().encode('utf-8'),
                     file_name='all_stocks_df.csv',
                     mime='text/csv',
@@ -283,7 +283,7 @@ if st.session_state['logged_in']:
                     for store in stores_list:
                         if files[store['slug']] is not None:
                             st.session_state[store['slug']+'_sales_transformed_data'], st.session_state[store['slug']+'_nondef_transformed_data'] = transform_sales(store['slug'],files[store['slug']] ,st.session_state['source_df'])
-                            st.session_state[store['slug']+'_stock_transformed_data'], st.session_state[store['slug']+'_nondef_stocks_transformed_data'] = transform_stock(store['slug'],files[store['slug']] ,st.session_state['source_df'])
+                            st.session_state[store['slug']+'_stock_transformed_data'], st.session_state[store['slug']+'_nondef_stock_transformed_data'] = transform_stocks(store['slug'],files[store['slug']] ,st.session_state['source_df'])
 
                         # st.session_state[store['slug']+'_sales_transformed_data'], st.session_state[store['slug']+'_nondef_transformed_data'] = transformer_data_axiom_sales(st.session_state[store['slug']+'_sales'] ,st.session_state['source_df'])
 
@@ -313,7 +313,10 @@ if st.session_state['logged_in']:
 
                     for item in st.session_state['sdg_stocks_transformed_data']:
                         st.session_state['all_stocks'].append(item)
-                    
+                    #multiple Stock
+                    for store in stores_list:
+                        for item in st.session_state[store['slug']+'_stock_transformed_data']:
+                            st.session_state['all_stocks'].append(item)
 
                     ### Non-Def
                     for item in st.session_state['lulu_nondef_transformed_data']:
@@ -356,7 +359,7 @@ if st.session_state['logged_in']:
                 st.write("# All Sales Data:")
                 st.dataframe(st.session_state.all_sales)
 
-                st.write("# All Stocks Data:")
+                st.write("# All Stock Data:")
                 st.dataframe(st.session_state.all_stocks)
 
                 st.write("# All Non-Defined Data:")
@@ -365,13 +368,13 @@ if st.session_state['logged_in']:
             elif st.session_state['output'] == "Carrefour":
                 st.write("# Carrefour Sales Data:")
                 st.dataframe(st.session_state['c4_sales_transformed_data'])
-                st.write("# Carrefour Stocks Data:")
+                st.write("# Carrefour Stock Data:")
                 st.dataframe(st.session_state['c4_stocks_transformed_data'])
             
             elif st.session_state['output'] == "SharafDG":
                 st.write("# SharafDG Sales Data:")
                 st.dataframe(st.session_state['sdg_sales_transformed_data'])
-                st.write("# SharafDG Stocks Data:")
+                st.write("# SharafDG Stock Data:")
                 st.dataframe(st.session_state['sdg_stocks_transformed_data'])
                 st.write("# SharafDG Non-Defined Data:")
                 st.dataframe(st.session_state['sdg_nondef_sales_transformed_data'])
@@ -380,7 +383,7 @@ if st.session_state['logged_in']:
             elif st.session_state['output'] == "LuLu":
                 st.write("# LuLu Sales Data:")
                 st.dataframe(st.session_state['lulu_sales_transformed_data'])
-                st.write("# LuLu Stocks Data:")
+                st.write("# LuLu Stock Data:")
                 st.dataframe(st.session_state['lulu_stocks_transformed_data'])
                 st.write("# LuLu Non-Defined Data:")
                 st.dataframe(st.session_state['lulu_nondef_transformed_data'])
@@ -390,7 +393,7 @@ if st.session_state['logged_in']:
                     if st.session_state['output'] == store['title']:
                         st.write(store['title']+" Sales Data:")
                         st.dataframe(st.session_state[store['slug']+'_sales_transformed_data'])
-                        st.write(store['title']+" Stocks Data:")
+                        st.write(store['title']+" Stock Data:")
                         st.dataframe(st.session_state[store['slug']+'_stock_transformed_data'])
                         # st.dataframe(st.session_state['axiom_stocks_transformed_data'])
                         st.write(store['title']+" Non-Defined Sales:")

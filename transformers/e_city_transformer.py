@@ -40,7 +40,7 @@ def transform_sales(exel_path, source_df):
     return sales_data, non_defined_items
 
 
-def transform_stock(exel_path, source_df):
+def transform_stocks(exel_path, source_df):
     data = pd.read_excel(exel_path,sheet_name='SOH',)
     target_column = 'Article_E_City'
 

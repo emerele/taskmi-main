@@ -44,7 +44,7 @@ def transform_sales(exel_path, source_df):
     return sales_data, non_defined_items
 
 
-def transform_stock(exel_path, source_df):
+def transform_stocks(exel_path, source_df):
 
 
     data = pd.read_excel(exel_path,sheet_name='Stock',header=[1])
@@ -75,6 +75,7 @@ def transform_stock(exel_path, source_df):
             else:
                 stock_list.append({
                     'barcode': filtered_df['Barcode'].values[0],
+                    'Retail': 'Axiom',
                     'Article': row['PRODUCT CODE'],
                     'model': row['PRODUCT DESCRIPTION'],
                     'stock': row['SOH'],
