@@ -40,5 +40,47 @@ def transform_sales(exel_path, source_df):
                 })
 
 
-
+    
     return sales_data, non_defined_items
+
+
+def transform_stock(exel_path, source_df):
+
+
+    data = pd.read_excel(exel_path,sheet_name='Stock',header=[1])
+    axiom_column = 'Article_Axiom'
+    
+    stock_list = []
+    non_defined_list = []
+    data.columns = data.columns.str.strip()
+    source_df.columns = source_df.columns.str.strip()
+    if data is not None:
+        for index, row in data.iterrows():
+         
+            
+
+            desired_value = row['PRODUCT CODE']
+            
+            
+            
+            filtered_df = source_df[source_df[axiom_column] == desired_value]
+
+            if filtered_df.empty:
+                non_defined_list.append({
+                    'Retail': 'Axiom',
+                    'Article': row['PRODUCT CODE'],
+                    'model': row['PRODUCT DESCRIPTION'],
+                    'stock': row['SOH'],
+                })
+            else:
+                stock_list.append({
+                    'barcode': filtered_df['Barcode'].values[0],
+                    'Article': row['PRODUCT CODE'],
+                    'model': row['PRODUCT DESCRIPTION'],
+                    'stock': row['SOH'],
+                    'Selling Price': filtered_df['Selling Price'].values[0],
+                })
+
+
+
+    return stock_list, non_defined_list

@@ -5,7 +5,7 @@ from streamlit_extras.grid import grid
 from mystuff import *
 from data_reader import *
 from transormer import *
-from transformers import transform_sales
+from transformers import transform_sales,transform_stock
 # Hardcoded username and password for demonstration purposes
 USERNAME = "user"
 PASSWORD = "password"
@@ -86,6 +86,7 @@ if 'logged_in' not in st.session_state:
             st.session_state[store['slug']+'_stock_transformed_data'] = []
             st.session_state[store['slug']+'_sales_transformed_data'] = []
             st.session_state[store['slug']+'_nondef_transformed_data'] = []
+            st.session_state[store['slug']+'_nondef_stocks_transformed_data'] = []
 
 
 
@@ -282,6 +283,8 @@ if st.session_state['logged_in']:
                     for store in stores_list:
                         if files[store['slug']] is not None:
                             st.session_state[store['slug']+'_sales_transformed_data'], st.session_state[store['slug']+'_nondef_transformed_data'] = transform_sales(store['slug'],files[store['slug']] ,st.session_state['source_df'])
+                            st.session_state[store['slug']+'_stock_transformed_data'], st.session_state[store['slug']+'_nondef_stocks_transformed_data'] = transform_stock(store['slug'],files[store['slug']] ,st.session_state['source_df'])
+
                         # st.session_state[store['slug']+'_sales_transformed_data'], st.session_state[store['slug']+'_nondef_transformed_data'] = transformer_data_axiom_sales(st.session_state[store['slug']+'_sales'] ,st.session_state['source_df'])
 
 
@@ -387,9 +390,10 @@ if st.session_state['logged_in']:
                     if st.session_state['output'] == store['title']:
                         st.write(store['title']+" Sales Data:")
                         st.dataframe(st.session_state[store['slug']+'_sales_transformed_data'])
-                        # st.write("# Axiom Stocks Data:")
+                        st.write(store['title']+" Stocks Data:")
+                        st.dataframe(st.session_state[store['slug']+'_stock_transformed_data'])
                         # st.dataframe(st.session_state['axiom_stocks_transformed_data'])
-                        st.write(store['title']+" Non-Defined Data:")
+                        st.write(store['title']+" Non-Defined Sales:")
                         st.dataframe(st.session_state[store['slug']+'_nondef_transformed_data'])
 
 
