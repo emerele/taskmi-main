@@ -11,6 +11,7 @@ from .Jackys_transformer import transform_sales as jackys_transform_sales
 from .Jackys_transformer import transform_stocks as jackys_transform_stocks
 
 from .nesto_transformer import transform_sales as nesto_transform_sales
+from .nesto_transformer import transform_stocks as nesto_transform_stocks
 transform_sales_methods = {
     "axiom": axiom_transform_sales,
     "dubai_duty": dubai_duty_transform_sales,
@@ -24,6 +25,8 @@ transform_stock_methods = {
     "axiom": axiom_transform_stocks,
     "e_city": ecity_transform_stocks,
     "jackys": jackys_transform_stocks,
+    "nesto_xiaomi" : nesto_transform_stocks,
+    "nesto_lazor" : nesto_transform_stocks,
 }
 
 
